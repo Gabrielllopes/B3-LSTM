@@ -38,10 +38,10 @@ def main():
     # Selecting the result from the first day that whants to predict
     answeres = training_set_scaled[(TIME_STEP+(DAYS_IN-1)):, FEATURE_PREDICT]
 
-    x = np.reshape(features[0:TIME_STEP],(-1, NUMBER_OF_FEATURES, TIME_STEP))
+    x = np.reshape(features[0:TIME_STEP],(-1, TIME_STEP, NUMBER_OF_FEATURES))
 
     for i in range(TIME_STEP, (features.shape[0]-TIME_STEP)):
-        reshaped = np.reshape(features[i:(i+TIME_STEP)],(-1, NUMBER_OF_FEATURES, TIME_STEP))
+        reshaped = np.reshape(features[i:(i+TIME_STEP)],(-1, TIME_STEP, NUMBER_OF_FEATURES))
         x = np.append(x, reshaped,0)
 
     # taking the answeres 
@@ -53,7 +53,6 @@ def main():
     from keras.models import Sequential
     from keras.layers import Dense
     from keras.layers import LSTM
-    from keras.layers import Dropout
     from keras.callbacks import CSVLogger
     from keras.callbacks import ModelCheckpoint
 
@@ -61,15 +60,12 @@ def main():
 
     regressor.add(LSTM(units = 8, return_sequences = True, input_shape = (TIME_STEP,NUMBER_OF_FEATURES )))
     regressor.add(LSTM(units = 16, return_sequences = True))
-    regressor.add(LSTM(units = 32, return_sequences = True))
-    regressor.add(Dropout(0.2))
-    regressor.add(LSTM(units = 64, return_sequences = True))
-    regressor.add(Dropout(0.5))
-
+    regressor.add(LSTM(units = 32, return_sequences = True, dropout=(0.2)))
+    regressor.add(LSTM(units = 64, dropout=(0.5)))
     regressor.add(Dense(units = 1, activation = "sigmoid"))
 
     regressor.compile(optimizer = 'adam', loss = 'mse', metrics=['mae'])
-
+    regressor.summary()
     csv_logger = CSVLogger(os.path.join(SAVE_PATH, 'your_log_name' + '.log'), append=True)
     save_model = os.path.join(SAVE_PATH, "model-{epoch:02d}-{loss:.3f}-{mae:.4f}.model")
 
