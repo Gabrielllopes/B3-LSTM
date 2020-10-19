@@ -1,9 +1,15 @@
 B3-LSTM
 ==============================
 
-Análise e predição de ações da B3.
 
-Project Organization
+
+<img src=/reports/figures/rede.png>
+
+### Este projeto implementa uma Rede Neural Artificial LSTM que prevê os valores de fechamento de ações da B3.  
+
+### Neste repositório são encontrados os scripts necessários para a análise e predição de ações da B3.
+
+Organização do projeto
 ------------
 
     ├── README.md          <- The top-level README for developers using this project.
@@ -32,7 +38,10 @@ Project Organization
     │   └── visualization 
     └──      └── visualize.py <- Script para vizualizar os dados utilizados para treinamento e test
 
+## Exemplos de Predições
 
+<img src=/reports/figures/bbdc.png>
+<img src=/reports/figures/vale.png>
 
 --------
 
