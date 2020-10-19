@@ -26,7 +26,8 @@ Project Organization
     │   │
     │   ├── models         <- Scripts para treinar e predizer os modelos.
     │   │   ├── predict_model.py
-    │   │   └── train_model.py
+    │   │   ├── grid_search.py <- Realiza a busca em grid por hyper parametros
+    │   │   └── train_model.py <- Treina um modelo
     │   │
     │   └── visualization 
     └──      └── visualize.py <- Script para vizualizar os dados utilizados para treinamento e test
